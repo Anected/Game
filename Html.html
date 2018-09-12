@@ -19,17 +19,16 @@
             padding: 8px;
         }
     </style>
-    <script src="maze.js"></script>
+
 </head>
 <body>
-    <h1>Тетрис НАЧАЛО</h1>
-<canvas id="canvas"></canvas>
-<div>
-    <button onclick="loadHard()">Сложный лабиринт</button>
-    <button onclick="loadEasy()">Простой лабиринт</button>
-</div>
+<button>Нажми меня нежно.</button>
+<p>А здесь нет обработчиков.</p>
+<script>
+    addEventListener("keydown", function (event){
+        console.log(event.keyCode);
+    })
+</script>
 
-<img id="face" src="face.png">
-</body>
 </html>
 
