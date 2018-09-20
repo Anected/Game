@@ -22,12 +22,14 @@
 
 </head>
 <body>
-<button>Нажми меня нежно.</button>
-<p>А здесь нет обработчиков.</p>
 <script>
-    addEventListener("keydown", function (event){
-        console.log(event.keyCode);
-    })
+    var canvas = document.querySelector("canvas");
+    var ctx = canvas.getContext("2d");
+    ctx.fillStyle = "red";
+    for(var i=0; i<data.length; i++) {
+        var dp = data[i];
+        ctx.translate(<b id="translatedemo_var1">100</b>, 0);
+        ctx.fillRect(0,0,50,dp);
 </script>
 
 </html>

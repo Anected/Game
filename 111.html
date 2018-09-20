@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 Canvas - Лабиринт</title>
+    <style>
+        canvas {
+            border: 6px double black;
+            background: white;
+        }
+    </style>
+
+</head>
+<body>
+<canvas width="500" height="500"></canvas>
+<script>
+    let canvas = document.querySelector("canvas");
+    let context = canvas.getContext("2d");
+    let width = 20;
+    let height = 20;
+    let a = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    ];
+
+    const Draw = arr => {
+        for (var i = 0; i < arr.length; i++) {
+            for (var j = 0; j < arr[i].length; j++) {
+                if (arr[i][j] === 0) {
+                    context.fillStyle = 'red';
+                    context.fillRect(j * width, i * height, width, height);
+                }
+                else {
+                    context.fillStyle = 'green';
+                    context.fillRect(j * width, i * height, width, height);
+                    context.strokeRect(j * width, i * height, width, height);
+                }
+            }
+        }
+    }
+    const arrMove = arr => {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].indexOf(0) === -1) {
+                arr.splice(i, 1);
+                arr.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+            }
+        }
+    }
+
+
+    setTimeout(Draw(a), 1000);
+    setTimeout(arrMove(a), 2000);
+    setTimeout(Draw(a),5000);
+
+</script>
+</body>
+
+</html>
+
