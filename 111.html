@@ -18,16 +18,14 @@
     let context = canvas.getContext("2d");
     let width = 20;
     let height = 20;
-    let xc = 5;
+    let xc = 5; // координаты центра
     let yc = 5;
-    let x1 = 0;
-    let y1 = 1;
-    let x2 = 0;
-    let y2 = 2;
-    let x3 = 0;
-    let y3 = -1;
-    let x4 = 0;
-    let y4 = -2;
+    let element = [  // относительные координаты частей элемента
+        [0, 1],  // x1,y1
+        [0, 2],  // x2,y2
+        [0, -1],  // x3,y3
+        [0, -2],  //x4,y4
+    ];
     let a = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -66,9 +64,13 @@
             }
         }
     };
-    const drawElement = (x,y) => {
-        a[y][x] = 1;
-
+    const drawElement = () => {
+        for (var i = 0; i < element.length; i++) {
+            let x0 = xc + element[i][0];
+            let y0 = yc + element[i][1];
+            a[y0][x0] = 1;
+        a[yc][xc] = 1;
+        }
     };
     const arrMove = arr => {
         for (var i = 0; i < arr.length; i++) {
@@ -90,32 +92,57 @@
             pointTest(xc + x4, yc + x4));
     };
 
-    const move = () => {
+    const move = (direction) => {
+        switch (direction) {
+            case 'left': {
+                for (var i = 0; i < element.length; i++) {
+                    let x0 = xc + element[i][0];
+                    let y0 = yc + element[i][1];
+                    a[y0][x0] = 0;
+                    a[yc][xc] = 0;
+                }
+                xc--;
+                break;
+            }
+            case 'right': {
+                for (var i = 0; i < element.length; i++) {
+                    let x0 = xc + element[i][0];
+                    let y0 = yc + element[i][1];
+                    a[y0][x0] = 0;
+                    a[yc][xc] = 0;
+                }
+                xc++;
+                break;
+            }
+            case 'down': {
+                for (var i = 0; i < element.length; i++) {
+                    let x0 = xc + element[i][0];
+                    let y0 = yc + element[i][1];
+                    a[y0][x0] = 0;
+                }
+                yc++;
+                break;
+            }
+        }
+    };
 
-    }
     addEventListener("keydown", function (event) {
         switch (event.keyCode) {
             case 37: {
-                let oldxc = xc;
-                xc--;
-                a[yc][oldxc] = 0;
-                drawElement(xc,yc);
+                move('left');
+                drawElement();
                 break;
-            };
+            }
             case 39: {
-                let oldxc = xc;
-                xc++;
-                a[yc][oldxc] = 0;
-                drawElement(xc,yc);
+                move('right');
+                drawElement();
                 break;
-            };
+            }
             case 40: {
-                let oldyc = yc;
-                yc++;
-                a[oldyc][xc] = 0;
-                drawElement(xc,yc);
+                move('down');
+                drawElement();
                 break;
-            };
+            }
 
             //case 32:
             // case 38 : {
@@ -125,7 +152,7 @@
             default:
                 console.log(event.keyCode);
         }
-    Draw(a);
+        Draw(a);
     });
     Draw(a);
     // setTimeout(() => {
