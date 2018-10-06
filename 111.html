@@ -18,24 +18,34 @@
     let context = canvas.getContext("2d");
     let width = 20;
     let height = 20;
+    let xc = 5;
+    let yc = 5;
+    let x1 = 0;
+    let y1 = 1;
+    let x2 = 0;
+    let y2 = 2;
+    let x3 = 0;
+    let y3 = -1;
+    let x4 = 0;
+    let y4 = -2;
     let a = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
-        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
-        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -55,7 +65,11 @@
                 }
             }
         }
-    }
+    };
+    const drawElement = (x,y) => {
+        a[y][x] = 1;
+
+    };
     const arrMove = arr => {
         for (var i = 0; i < arr.length; i++) {
             if (arr[i].indexOf(0) === -1) {
@@ -63,12 +77,62 @@
                 arr.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
             }
         }
+    };
+    const pointTest = (x, y) => {
+        return (a[y][x] === 0) && (y <= a.length) && (x <= a[1].length);
+    };
+
+    const elementTest = () => {
+        return !!(pointTest(xc, yc) &&
+            pointTest(xc + x1, yc + y1) &&
+            pointTest(xc + x2, yc + y2) &&
+            pointTest(xc + x3, yc + y3) &&
+            pointTest(xc + x4, yc + x4));
+    };
+
+    const move = () => {
+
     }
+    addEventListener("keydown", function (event) {
+        switch (event.keyCode) {
+            case 37: {
+                let oldxc = xc;
+                xc--;
+                a[yc][oldxc] = 0;
+                drawElement(xc,yc);
+                break;
+            };
+            case 39: {
+                let oldxc = xc;
+                xc++;
+                a[yc][oldxc] = 0;
+                drawElement(xc,yc);
+                break;
+            };
+            case 40: {
+                let oldyc = yc;
+                yc++;
+                a[oldyc][xc] = 0;
+                drawElement(xc,yc);
+                break;
+            };
 
-
-    setTimeout(Draw(a), 1000);
-    setTimeout(arrMove(a), 2000);
-    setTimeout(Draw(a),5000);
+            //case 32:
+            // case 38 : {
+            //    tetris.move('rotate')
+            //     break
+            //}
+            default:
+                console.log(event.keyCode);
+        }
+    Draw(a);
+    });
+    Draw(a);
+    // setTimeout(() => {
+    //  arrMove(a);
+    //   drawElement();
+    //   Draw(a);
+    //}, 2000);
 
 </script>
 </body>
